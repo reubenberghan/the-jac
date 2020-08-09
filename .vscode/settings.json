@@ -1,0 +1,9 @@
+{
+  "deno.enable": false,
+  "files.exclude": {
+    "node_modules": true,
+    ".cache": true,
+    ".vscode": true,
+    "LICENSE": true
+  }
+}
