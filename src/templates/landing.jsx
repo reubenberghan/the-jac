@@ -1,29 +1,30 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import { graphql } from "gatsby";
-import Layout from "../layout";
-import PostListing from "../components/PostListing/PostListing";
-import SEO from "../components/SEO/SEO";
-import config from "../../data/SiteConfig";
+import React from 'react'
+import { Helmet } from 'react-helmet'
+import { graphql } from 'gatsby'
+import EmbeddedContent from '../components/EmbeddedContent/EmbeddedContent'
+import Layout from '../layout'
+import PostListing from '../components/PostListing/PostListing'
+import SEO from '../components/SEO/SEO'
+import config from '../../data/SiteConfig'
 
-class Landing extends React.Component {
-  render() {
-    const postEdges = this.props.data.allMarkdownRemark.edges;
-    return (
-      <Layout>
-        <div className="landing-container">
-          <div className="posts-container">
-            <Helmet title={config.siteTitle} />
-            <SEO />
-            <PostListing postEdges={postEdges} />
-          </div>
+const Landing = ({ data }) => {
+  const postEdges = data.allMarkdownRemark.edges
+  const { landing = {} } = config.embeddedContent || {}
+  return (
+    <Layout>
+      <div className='landing-container'>
+        <div className='posts-container'>
+          <Helmet title={config.siteTitle} />
+          <SEO />
+          <EmbeddedContent src={landing.src} title={landing.title} />
+          <PostListing postEdges={postEdges} />
         </div>
-      </Layout>
-    );
-  }
+      </div>
+    </Layout>
+  )
 }
 
-export default Landing;
+export default Landing
 
 /* eslint no-undef: "off" */
 export const pageQuery = graphql`
@@ -47,4 +48,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`
